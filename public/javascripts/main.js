@@ -67,7 +67,7 @@
 		this.chatViewWrap.animate({scrollTop:this.chatView.height()},100);
 	};
 	View.prototype.getNickName = function(){
-		return prompt("닉네임을 입력해주세요", '').slice(0,30) || "Nhn 호구" 
+		return prompt("닉네임을 입력해주세요", '').substring(0,30) || "Nhn 호구" 
 	};
 
 
