@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ComicHou</title>
+	<style>
+	.chatViewWrap {
+		width:80%;
+		height: 500px;
+		position: relative;
+		background:#E9DEDE;
+		overflow-y:scroll; 
+	}
+	.chat{
+		width : 70%;
+		margin-top:15px;
+		height: 20px;
+	}
+	</style>
+</head>
+<body>
+	<p><%= title %> 현재 접속 수 <span class="cut"></span>명</p>
+	<div class="chatViewWrap">
+		<div class="chatView">
+		</div>
+
+	</div>
+	<input type="text" class="chat"/>
+	<button class="send">보내기</button>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/jquery-1.11.1.min.js"></script>
+<script src="/javascripts/main.js"></script>
+</body>
+</html>
