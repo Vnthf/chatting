@@ -14,7 +14,18 @@
 		},
 	
 	};
-
+	var PerventCancer={
+		checkCount : 0,
+		checkManyInput : function(){
+			if(this.checkCount>10){
+				 alert("도배아웃");
+				 location.href="Don't do plaster.babo"
+			}
+			else{
+				this.checkCount = 0;
+			}
+		}
+	}; 
 	var View = function(){
 		this.cut = $(".cut");
 		this.chatView = $(".chatView");
@@ -31,6 +42,8 @@
 		Socket.init(this.msgFn.bind(this),this.receive.bind(this));
 		Socket.enter(this.nickName);
 
+		setInterval(PerventCancer.checkManyInput.bind(PerventCancer),2000);
+
 	};
 	View.prototype.msgFn = function(data){
 		this.chatView.append("<span style='color:red'>"+data.nickName + "님이 입장하셨습니다.</span><br/>" );
@@ -40,15 +53,17 @@
 	View.prototype.send = function(){
 		var chat = this.chat.val();
 		if(chat.length>200){
-			chat = chat.splice(0,200);
+			chat = chat.splice(0,2000);
 		}
 		if(chat.trim()!=""){
 			Socket.send(this.chat.val(),this.nickName);
 			this.chat.val('');
+			PerventCancer.checkCount ++;
+			console.log(PerventCancer.checkCount);
 		}
 	};
 	View.prototype.receive = function(data){
-		this.chatView.append("<span>"+data.nickName +" : "+ data.chat +"</span><br/>");
+		this.chatView.append("<span><span style='color:green'>"+data.nickName +"</span> : "+ data.chat +"</span><br/>");
 		this.chatViewWrap.animate({scrollTop:this.chatView.height()},100);
 	};
 	View.prototype.getNickName = function(){
@@ -57,6 +72,8 @@
 
 
 	var a = new View();
+
+	
 
 })();
 

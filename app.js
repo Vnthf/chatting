@@ -78,10 +78,13 @@ var activeClient = 0;
 io.sockets.on('connection', function(socket){
     activeClient++;
     socket.on('enter',function(data){
-        io.sockets.emit('message',{nickName : data.nickName, clients:activeClient});
+        var nickName = preventScript(data.nickName);
+        io.sockets.emit('message',{nickName : nickName, clients:activeClient});
     });
      socket.on('newchat',function(data){
-         io.sockets.emit('chat',{nickName : data.nickName, chat:data.chat});
+         var chat = preventScript(data.chat);
+         var nickName = preventScript(data.nickName);
+         io.sockets.emit('chat',{nickName : nickName, chat:chat});
     });
     socket.on('disconnect',function(data){
         activeClient--;
@@ -90,5 +93,11 @@ io.sockets.on('connection', function(socket){
    
 });
 
-
+var preventScript = function(_str){
+    var str = _str;
+    str = str.replace(/</gi,'&lt;');
+    str = str.replace(/>/gi,'&gt;');
+    str = str.replace(/호우/gi,"천재");
+    return str;
+};
 
