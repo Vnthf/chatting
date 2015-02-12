@@ -53,7 +53,7 @@
 	View.prototype.send = function(){
 		var chat = this.chat.val();
 		if(chat.length>200){
-			chat = chat.splice(0,2000);
+			chat = chat.splice(0,200);
 		}
 		if(chat.trim()!=""){
 			Socket.send(this.chat.val(),this.nickName);
@@ -67,7 +67,7 @@
 		this.chatViewWrap.animate({scrollTop:this.chatView.height()},100);
 	};
 	View.prototype.getNickName = function(){
-		return prompt("닉네임을 입력해주세요", '') || "Nhn 호구" 
+		return prompt("닉네임을 입력해주세요", '').slice(0,30) || "Nhn 호구" 
 	};
 
 

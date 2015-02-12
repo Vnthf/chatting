@@ -79,11 +79,13 @@ io.sockets.on('connection', function(socket){
     activeClient++;
     socket.on('enter',function(data){
         var nickName = preventScript(data.nickName);
+    
         io.sockets.emit('message',{nickName : nickName, clients:activeClient});
     });
      socket.on('newchat',function(data){
          var chat = preventScript(data.chat);
          var nickName = preventScript(data.nickName);
+  
          io.sockets.emit('chat',{nickName : nickName, chat:chat});
     });
     socket.on('disconnect',function(data){
