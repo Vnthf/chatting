@@ -39,6 +39,7 @@
 				this.send();
 			}
 		}.bind(this));
+		$(".send").click(this.send.bind(this));
 		Socket.init(this.msgFn.bind(this),this.receive.bind(this));
 		Socket.enter(this.nickName);
 
@@ -59,7 +60,6 @@
 			Socket.send(this.chat.val(),this.nickName);
 			this.chat.val('');
 			PerventCancer.checkCount ++;
-			console.log(PerventCancer.checkCount);
 		}
 	};
 	View.prototype.receive = function(data){
@@ -67,7 +67,17 @@
 		this.chatViewWrap.animate({scrollTop:this.chatView.height()},100);
 	};
 	View.prototype.getNickName = function(){
-		return prompt("닉네임을 입력해주세요", '').substring(0,30) || "Nhn 호구" 
+		var nickName = prompt("닉네임을 입력해주세요", '');
+		if(nickName === null){
+			return "Nhn 호구" 
+		}
+		else if(nickName.length > 30){
+			return nickName.substring(0,30)
+		}
+		else {
+			return nickName;
+		}
+		
 	};
 
 
